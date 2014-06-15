@@ -38,6 +38,13 @@ maktaba#rtp#Split gracefully handles commas in directories:
 
 Though we still recommend that you never ever do this.
 
+It also avoids trailing backslashes. Even though these might be reasonable in a
+Windows environment, vim's |option-backslash| escaping doesn't have a valid way
+to represent them.
+
+  :echomsg maktaba#rtp#Join(['foo\', 'bar'])
+  ~ foo,bar
+
 
 
 Maktaba has a special function for adding directories to the runtimepath. This

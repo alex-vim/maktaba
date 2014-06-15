@@ -56,7 +56,10 @@ endfunction
 " Handles the escaping of commas in {paths}.
 function! maktaba#rtp#Join(paths) abort
   call maktaba#ensure#IsList(a:paths)
-  return join(map(a:paths, "escape(v:val, '\,')"), ',')
+  " Strips trailing backslashes from paths, since |option-backslash| escaping
+  " has no valid way to represent trailing backslashes.
+  return join(map(a:paths,
+      \ "escape(substitute(v:val, '\\m\\\\$', '', ''), '\,')"), ',')
 endfunction
 
 
